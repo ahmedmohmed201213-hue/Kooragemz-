@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>كورة جيمز | Koora Games</title>
-
-  <!-- إعدادات التشغيل المستقل على الآيفون -->
+  <meta name="theme-color" content="#091224" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="كورة جيمز" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#07132b" />
-
+  <meta name="apple-mobile-web-app-title" content="كورة جيمز" />
+  <title>كورة جيمز — إعداد وتطوير: أحمد محمد</title>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <style>
     :root {
-      --bg-royal: #07132b;
-      --bg-royal-dark: #040b1a;
-      --card-bg: #0e2249;
-      --card-elevated: #142f63;
-      --accent-gold: #f5b700;
-      --accent-gold-soft: rgba(245, 183, 0, 0.16);
-      --accent-cyan: #22d3ee;
-      --accent-green: #22c55e;
-      --accent-red: #ef4444;
+      --bg-main: #070e1c;
+      --bg-card: #0e1a33;
+      --bg-elevated: #142547;
+      --gold: #f5b727;
+      --gold-soft: rgba(245, 183, 39, 0.16);
+      --cyan: #22d3ee;
+      --cyan-soft: rgba(34, 211, 238, 0.14);
+      --success: #22c55e;
+      --danger: #ef4444;
       --text-main: #f8fafc;
       --text-muted: #cbd5e1;
-      --border-soft: rgba(255, 255, 255, 0.14);
-      --radius-lg: 20px;
-      --radius-md: 14px;
+      --border: rgba(255, 255, 255, 0.12);
     }
 
     * {
@@ -36,764 +32,798 @@
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-      background: radial-gradient(circle at top, #122d61 0%, var(--bg-royal) 55%, var(--bg-royal-dark) 100%);
-      color: var(--text-main);
+      padding: 16px 14px 36px;
       min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(245, 183, 39, 0.12), transparent 40%),
+        var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
       font-size: 18px;
-      line-height: 1.65;
+      line-height: 1.55;
     }
 
-    .container {
-      max-width: 860px;
+    .app-shell {
+      max-width: 680px;
       margin: 0 auto;
-      padding: 20px 16px 48px;
     }
 
-    header.app-header {
-      background: linear-gradient(135deg, rgba(20, 47, 99, 0.95), rgba(8, 22, 51, 0.98));
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg);
-      padding: 22px 18px;
-      margin-bottom: 20px;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-    }
-
-    .brand-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
     }
 
     .brand-title {
-      margin: 0;
+      margin: 0 0 8px;
       font-size: 32px;
       font-weight: 800;
-      color: var(--accent-gold);
-      letter-spacing: 0.2px;
+      color: var(--gold);
+      text-align: center;
     }
 
-    .credit-badge {
-      background: var(--accent-gold-soft);
-      border: 1px solid rgba(245, 183, 0, 0.45);
-      color: #fde68a;
-      padding: 8px 14px;
+    .creator-pill {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 10px;
+      padding: 6px 16px;
       border-radius: 999px;
-      font-size: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid rgba(245, 183, 39, 0.35);
+      color: var(--text-main);
+      font-size: 17px;
       font-weight: 700;
+      text-align: center;
     }
 
     .subtitle {
-      margin: 10px 0 0;
+      margin: 0;
       color: var(--text-muted);
       font-size: 18px;
+      text-align: center;
     }
 
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .game-pick-btn {
-      background: var(--card-bg);
-      color: var(--text-main);
-      border: 2px solid var(--border-soft);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      text-align: right;
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-      font-size: 19px;
-      font-weight: 700;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .game-pick-btn span.tag {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--accent-cyan);
-    }
-
-    .game-pick-btn:hover,
-    .game-pick-btn.active {
-      border-color: var(--accent-gold);
-      background: var(--card-elevated);
-      transform: translateY(-2px);
-    }
-
-    .stage {
-      background: rgba(14, 34, 73, 0.92);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg);
-      padding: 20px 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
     }
 
     .how-to-play {
-      background: rgba(245, 183, 0, 0.12);
-      border-right: 5px solid var(--accent-gold);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-    }
-
-    .how-to-play-title {
-      margin: 0 0 6px;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--accent-gold);
-    }
-
-    .how-to-play p {
-      margin: 0;
-      font-size: 18px;
+      background: var(--bg-elevated);
+      border-right: 4px solid var(--gold);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 17px;
       color: var(--text-main);
     }
 
-    .hud-bar {
+    .how-to-play strong {
+      display: block;
+      color: var(--gold);
+      font-size: 19px;
+      margin-bottom: 4px;
+    }
+
+    .row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
       gap: 10px;
-      background: var(--bg-royal-dark);
-      padding: 12px 16px;
-      border-radius: var(--radius-md);
-      margin-bottom: 18px;
-      font-size: 18px;
-      font-weight: 700;
+      flex-wrap: wrap;
     }
 
-    .question-box {
-      background: var(--card-elevated);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      margin-bottom: 16px;
+    .col {
+      flex: 1 1 200px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    button {
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 15px;
+      border: 1.5px solid transparent;
+      font-size: 19px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #091224;
+    }
+
+    .btn-cyan {
+      background: var(--cyan-soft);
+      color: var(--cyan);
+      border-color: rgba(34, 211, 238, 0.45);
+    }
+
+    .btn-dark {
+      background: var(--bg-elevated);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+
+    .btn-success {
+      background: rgba(34, 197, 94, 0.2);
+      color: #86efac;
+      border-color: rgba(34, 197, 94, 0.45);
+    }
+
+    .game-item {
+      display: block;
+      width: 100%;
+      text-align: right;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .game-item.active-game {
+      border-color: var(--gold);
+      background: rgba(245, 183, 39, 0.12);
+    }
+
+    .game-item .g-title {
+      display: block;
       font-size: 21px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .game-item .g-desc {
+      display: block;
+      font-size: 16px;
+      color: var(--cyan);
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 15px;
       font-weight: 700;
+      background: var(--cyan-soft);
+      color: var(--cyan);
+      margin-top: 8px;
     }
 
-    .options-list {
+    .room-code-box {
+      background: var(--bg-main);
+      border: 2px dashed var(--gold);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .room-code-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 3px;
+    }
+
+    .score-board {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .option-btn,
-    .action-btn {
+    .score-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      color: var(--text-main);
+      padding: 15px 16px;
+      border-radius: 14px;
+      margin-bottom: 10px;
       font-size: 19px;
       font-weight: 700;
-      padding: 14px 18px;
-      border-radius: var(--radius-md);
-      border: 2px solid var(--border-soft);
-      background: var(--card-bg);
-      color: var(--text-main);
-      cursor: pointer;
-      text-align: right;
-      transition: 0.15s ease;
-    }
-
-    .option-btn:hover:not(:disabled),
-    .action-btn:hover:not(:disabled) {
-      border-color: var(--accent-cyan);
-      background: #1a3b7a;
     }
 
     .option-btn.correct {
-      background: rgba(34, 197, 94, 0.25);
-      border-color: var(--accent-green);
+      background: rgba(34, 197, 94, 0.22);
+      border-color: var(--success);
+      color: #bbf7d0;
     }
 
     .option-btn.wrong {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.22);
+      border-color: var(--danger);
+      color: #fecaca;
     }
 
-    .action-btn.primary {
-      background: var(--accent-gold);
-      color: #07132b;
-      border-color: var(--accent-gold);
-      text-align: center;
-    }
-
-    .action-btn.secondary {
-      background: transparent;
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-      text-align: center;
-    }
-
-    .color-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .color-tile {
-      height: 84px;
-      border-radius: 14px;
-      border: 3px solid rgba(255, 255, 255, 0.25);
-      font-size: 18px;
-      font-weight: 800;
-      color: #ffffff;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
-      cursor: pointer;
-    }
-
-    .input-row {
+    .color-swatch-row {
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
-      margin-top: 12px;
+      justify-content: center;
+      margin: 12px 0 16px;
     }
 
-    .answer-input {
-      flex: 1;
-      min-width: 210px;
-      font-size: 19px;
-      padding: 13px 16px;
-      border-radius: var(--radius-md);
-      border: 2px solid var(--border-soft);
-      background: var(--bg-royal-dark);
-      color: var(--text-main);
+    .swatch {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.45);
     }
 
-    .feedback {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: var(--radius-md);
-      font-size: 19px;
+    .feedback-box {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin: 10px 0 14px;
+      font-size: 18px;
       font-weight: 700;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
     }
 
-    .feedback.ok {
-      background: rgba(34, 197, 94, 0.18);
-      color: #86efac;
+    .hidden {
+      display: none !important;
     }
 
-    .feedback.err {
-      background: rgba(239, 68, 68, 0.18);
-      color: #fca5a5;
-    }
-
-    .controls-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    footer.app-footer {
-      margin-top: 24px;
+    footer {
       text-align: center;
       color: var(--text-muted);
       font-size: 17px;
+      font-weight: 700;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="app-header">
-      <div class="brand-row">
-        <h1 class="brand-title">⚽ كورة جيمز</h1>
-        <div class="credit-badge">إعداد وتطوير: أحمد محمد</div>
+  <div class="app-shell">
+    <!-- الهوية الرئيسية -->
+    <div class="card">
+      <h1 class="brand-title">⚽ كورة جيمز</h1>
+      <span class="creator-pill">إعداد وتطوير: أحمد محمد</span>
+      <p class="subtitle">منصة ألعاب كرة القدم — ادخل غرفتك أو ابدأ اللعب المحلي واختر التحدي</p>
+      <div style="text-align: center;">
+        <span id="connectionStatus" class="status-badge">الوضع: لم يتم دخول غرفة بعد</span>
       </div>
-      <p class="subtitle">منصة ألعاب كرة القدم — اختر لعبتك وابدأ التحدي فوراً</p>
-    </header>
+    </div>
 
-    <nav class="games-grid" aria-label="قائمة الألعاب الخمس">
-      <button class="game-pick-btn active" onclick="selectGame('duel', this)">
-        <span>1. 1 ضد 1 بالأسئلة</span>
-        <span class="tag">مواجهة مباشرة بين لاعبين</span>
-      </button>
-      <button class="game-pick-btn" onclick="selectGame('career', this)">
-        <span>2. مسيرة الأندية</span>
-        <span class="tag">اكتشف النادي من تسلسل المحطات</span>
-      </button>
-      <button class="game-pick-btn" onclick="selectGame('colors', this)">
-        <span>3. شبكة الألوان</span>
-        <span class="tag">اربط ألوان القمصان بالنادي</span>
-      </button>
-      <button class="game-pick-btn" onclick="selectGame('clues', this)">
-        <span>4. تخمين التلميحات</span>
-        <span class="tag">خمّن اللاعب أو البطولة بأقل تلميحات</span>
-      </button>
-      <button class="game-pick-btn" onclick="selectGame('rush60', this)">
-        <span>5. سباق 60 ثانية</span>
-        <span class="tag">أكبر عدد إجابات صحيحة في دقيقة</span>
-      </button>
-    </nav>
+    <!-- شاشة الدخول والغرف (تمنع اللعب المباشر العشوائي قبل اختيار الغرفة/الوضع) -->
+    <div id="lobbyScreen" class="card">
+      <h2 class="section-title">بوابة الغرف ووضع اللعب</h2>
+      <div class="how-to-play">
+        <strong>طريقة اللعب — الدخول إلى الغرفة</strong>
+        اختر «إنشاء غرفة أونلاين» للحصول على كود ترسله لصديقك، أو أدخل كود غرفة صديقك واضغط «انضمام»، أو اختر «لعب محلي على نفس الجهاز» لبدء التحدي.
+      </div>
 
-    <main class="stage" id="gameStage"></main>
+      <div class="row" style="margin-bottom: 12px;">
+        <div class="col">
+          <button id="createRoomBtn" class="btn-gold">إنشاء غرفة أونلاين</button>
+        </div>
+        <div class="col">
+          <button id="localPlayBtn" class="btn-cyan">لعب محلي (جهاز واحد)</button>
+        </div>
+      </div>
 
-    <footer class="app-footer">
-      كورة جيمز — إعداد وتطوير: أحمد محمد
-    </footer>
+      <div id="createdRoomBox" class="room-code-box hidden">
+        <div style="font-size: 16px; color: var(--text-muted);">كود غرفتك (أرسله للاعب الثاني):</div>
+        <div id="createdRoomCode" class="room-code-val">------</div>
+        <div id="waitingPeerText" style="font-size: 16px; color: var(--cyan); margin-top: 6px;">في انتظار انضمام اللاعب الثاني...</div>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <input id="joinCodeInput" type="text" maxlength="10" placeholder="أدخل كود الغرفة للانضمام" />
+        <button id="joinRoomBtn" class="btn-success" style="margin-top: 10px;">انضمام إلى الغرفة</button>
+      </div>
+    </div>
+
+    <!-- شاشة اختيار الألعاب الخمس بعد دخول الغرفة -->
+    <div id="hubScreen" class="card hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <h2 class="section-title" style="margin: 0;">اختر لعبتك وابدأ التحدي</h2>
+        <button id="leaveRoomBtn" class="btn-dark" style="width: auto; padding: 8px 14px; font-size: 16px;">تغيير الغرفة</button>
+      </div>
+
+      <button class="game-item" data-game="trivia">
+        <span class="g-title">1. 1 ضد 1 بالأسئلة</span>
+        <span class="g-desc">مواجهة مباشرة بين لاعبين</span>
+      </button>
+
+      <button class="game-item" data-game="career">
+        <span class="g-title">2. مسيرة الأندية</span>
+        <span class="g-desc">اكتشف النادي من تسلسل المحطات</span>
+      </button>
+
+      <button class="game-item" data-game="colors">
+        <span class="g-title">3. شبكة الألوان</span>
+        <span class="g-desc">اربط ألوان القمصان بالنادي</span>
+      </button>
+
+      <button class="game-item" data-game="hints">
+        <span class="g-title">4. تخمين التلميحات</span>
+        <span class="g-desc">خمّن اللاعب أو البطولة بأقل تلميحات</span>
+      </button>
+
+      <button class="game-item" data-game="sprint">
+        <span class="g-title">5. سباق 60 ثانية</span>
+        <span class="g-desc">أكبر عدد إجابات صحيحة في دقيقة</span>
+      </button>
+    </div>
+
+    <!-- شاشة اللعب الفعلي -->
+    <div id="gameScreen" class="card hidden">
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button id="backToHubBtn" class="btn-dark" style="padding: 10px 14px; font-size: 17px;">← قائمة الألعاب</button>
+        <button id="rematchBtn" class="btn-cyan" style="padding: 10px 14px; font-size: 17px;">إعادة اللعب (Rematch)</button>
+      </div>
+
+      <div id="howToPlayCard" class="how-to-play"></div>
+
+      <div class="score-board">
+        <div id="p1ScoreBox" class="score-box">اللاعب 1: 0</div>
+        <div id="p2ScoreBox" class="score-box">اللاعب 2: 0</div>
+      </div>
+
+      <div id="turnBanner" class="feedback-box" style="text-align: center; color: var(--gold);"></div>
+      <div id="questionBox" class="card" style="background: var(--bg-elevated); margin-bottom: 12px;"></div>
+      <div id="optionsContainer"></div>
+      <div id="feedbackBox" class="feedback-box hidden"></div>
+      <button id="nextBtn" class="btn-gold">السؤال التالي</button>
+    </div>
+
+    <footer>كورة جيمز — إعداد وتطوير: أحمد محمد</footer>
   </div>
 
   <script>
-    const DUEL_QUESTIONS = [
-      { q: "من هو أكثر لاعب تتويجاً بالكرة الذهبية عبر التاريخ؟", opts: ["ليونيل ميسي", "كريستيانو رونالدو", "ميشيل بلاتيني"], ans: 0 },
-      { q: "أي منتخب فاز بكأس العالم 2022 في قطر؟", opts: ["فرنسا", "الأرجنتين", "كرواتيا"], ans: 1 },
-      { q: "ما هو النادي الأكثر تتويجاً بدوري أبطال أوروبا؟", opts: ["إيه سي ميلان", "بايرن ميونخ", "ريال مدريد"], ans: 2 },
-      { q: "في أي عام أُقيمت أول بطولة لكأس العالم؟", opts: ["1930", "1950", "1926"], ans: 0 },
-      { q: "من هو الهداف التاريخي للدوري الإنجليزي الممتاز؟", opts: ["واين روني", "آلان شيرر", "هاري كين"], ans: 1 }
-    ];
-
-    const CAREER_STAGES = [
-      {
-        title: "مسيرة نادي: ريال مدريد",
-        stops: ["تأسيس 1902", "ملعب سانتياغو برنابيو", "15 لقباً في دوري الأبطال"],
-        options: ["برشلونة", "ريال مدريد", "أتلتيكو مدريد"],
-        ans: 1
+    const GAMES_DATA = {
+      trivia: {
+        title: "1 ضد 1 بالأسئلة",
+        howToPlay: "يتنافس لاعبان بالتبادل (اللاعب 1 ثم اللاعب 2) على الإجابة الصحيحة عن أسئلة الكرة؛ كل إجابة صحيحة تمنح نقطة واحدة.",
+        items: [
+          {
+            q: "من هو أكثر لاعب تتويجاً بالكرة الذهبية عبر التاريخ؟",
+            options: ["ليونيل ميسي", "كريستيانو رونالدو", "ميشيل بلاتيني"],
+            answer: 0
+          },
+          {
+            q: "أي منتخب فاز بكأس العالم 2022 في قطر؟",
+            options: ["فرنسا", "الأرجنتين", "البرازيل"],
+            answer: 1
+          },
+          {
+            q: "كم مرة حقق ريال مدريد دوري أبطال أوروبا حتى نهاية موسم 2023/2024؟",
+            options: ["13 مرة", "14 مرة", "15 مرة"],
+            answer: 2
+          },
+          {
+            q: "من هو الهداف التاريخي لكأس العالم؟",
+            options: ["ميروسلاف كلوزه", "رونالدو نازاريو", "بيليه"],
+            answer: 0
+          }
+        ]
       },
-      {
-        title: "مسيرة نادي: ليفربول",
-        stops: ["تأسيس 1892", "ملعب أنفيلد", "نشيد لن تسير وحدك أبداً"],
-        options: ["ليفربول", "إيفرتون", "أرسنال"],
-        ans: 0
+      career: {
+        title: "مسيرة الأندية",
+        howToPlay: "تتبع تسلسل محطات النادي عبر السنوات واختر اسم النادي الصحيح لتحقيق نقطة.",
+        items: [
+          {
+            q: "محطات النادي: تأسيس في برلين (1900) ← ألقاب البوندسليغا ← ألوان أزرق وأبيض.",
+            options: ["هرتا برلين", "شالكه 04", "فيردر بريمن"],
+            answer: 0
+          },
+          {
+            q: "محطات النادي: ملعب أنفيلد ← النشيد الشهير You'll Never Walk Alone ← لقب الريدز.",
+            options: ["ليفربول", "إيفرتون", "أرسنال"],
+            answer: 0
+          },
+          {
+            q: "محطات النادي: ملعب سان سيرو ← ألوان أحمر وأسود ← لقب الروسونيري.",
+            options: ["إنتر ميلان", "إيه سي ميلان", "يوفنتوس"],
+            answer: 1
+          }
+        ]
       },
-      {
-        title: "مسيرة نادي: الأهلي المصري",
-        stops: ["تأسيس 1907", "اللقب: نادي القرن الأفريقي", "القميص الأحمر الشهير"],
-        options: ["الزمالك", "الأهلي", "الإسماعيلي"],
-        ans: 1
+      colors: {
+        title: "شبكة الألوان",
+        howToPlay: "انظر إلى ألوان القمصان الظاهرة واختر النادي المرتبط بهذه الألوان الشهيرة.",
+        items: [
+          {
+            q: "أي نادٍ يشتهر بهذه الألوان للقميص الأساسي؟",
+            colors: ["#004d98", "#a50044", "#edbb00"],
+            options: ["برشلونة", "أتلتيكو مدريد", "إشبيلية"],
+            answer: 0
+          },
+          {
+            q: "أي نادٍ يرتدي هذه الألوان الكلاسيكية؟",
+            colors: ["#ffffff", "#111827", "#eab308"],
+            options: ["ريال مدريد", "توتنهام", "بورتو"],
+            answer: 0
+          },
+          {
+            q: "أي نادٍ يرتبط بهذه الألوان؟",
+            colors: ["#dc2626", "#111827", "#facc15"],
+            options: ["بوروسيا دورتموند", "بايرن ميونخ", "روما"],
+            answer: 1
+          }
+        ]
+      },
+      hints: {
+        title: "تخمين التلميحات",
+        howToPlay: "اقرأ التلميح الكروي بعناية وخمّن اللاعب أو البطولة الصحيحة.",
+        items: [
+          {
+            q: "تلميح: لعب لسبورتينغ لشبونة ومانشستر يونايتد وريال مدريد ويوفنتوس وهداف تاريخي لكرة القدم.",
+            options: ["كريستيانو رونالدو", "لويس فيغو", "روبرت ليفاندوفسكي"],
+            answer: 0
+          },
+          {
+            q: "تلميح: بطولة منتخبات تقام كل 4 سنوات وتُعد أرفع بطولة كروية في العالم.",
+            options: ["كأس القارات", "كأس العالم", "كأس السوبر"],
+            answer: 1
+          },
+          {
+            q: "تلميح: نجم مصري تألق مع ليفربول وحقق الحذاء الذهبي في الدوري الإنجليزي.",
+            options: ["محمد صلاح", "عمر مرموش", "محمود تريزيغيه"],
+            answer: 0
+          }
+        ]
+      },
+      sprint: {
+        title: "سباق 60 ثانية",
+        howToPlay: "أجب بسرعة ودقة خلال سباق 60 ثانية لجمع أكبر عدد من النقاط قبل انتهاء الوقت.",
+        items: [
+          {
+            q: "كم عدد لاعبي الفريق الواحد داخل الملعب في كرة القدم؟",
+            options: ["11 لاعباً", "10 لاعبين", "12 لاعباً"],
+            answer: 0
+          },
+          {
+            q: "كم مدة الشوط الأصلي الواحد في مباراة كرة القدم؟",
+            options: ["45 دقيقة", "30 دقيقة", "60 دقيقة"],
+            answer: 0
+          },
+          {
+            q: "أي قارة ينتمي إليها منتخب المغرب؟",
+            options: ["أفريقيا", "آسيا", "أوروبا"],
+            answer: 0
+          },
+          {
+            q: "ماذا تعني البطاقة الحمراء المباشرة للاعب؟",
+            options: ["طرد من المباراة", "إنذار فقط", "ركلة جزاء فورية"],
+            answer: 0
+          }
+        ]
       }
-    ];
+    };
 
-    const COLOR_PUZZLES = [
-      {
-        club: "برشلونة",
-        swatches: [
-          { label: "أزرق ملكي", color: "#1d4ed8" },
-          { label: "عنابي", color: "#881337" },
-          { label: "ذهبي", color: "#eab308" }
-        ],
-        options: ["برشلونة", "يوفنتوس", "إنتر ميلان"],
-        ans: 0
-      },
-      {
-        club: "نابولي",
-        swatches: [
-          { label: "أزرق سماوي", color: "#0284c7" },
-          { label: "أبيض", color: "#f8fafc" },
-          { label: "أزرق داكن", color: "#1e3a8a" }
-        ],
-        options: ["لاتسيو", "نابولي", "روما"],
-        ans: 1
+    const state = {
+      mode: null, // 'local' | 'online-host' | 'online-guest'
+      roomCode: "",
+      currentGame: "trivia",
+      qIndex: 0,
+      turn: 1, // 1 or 2
+      scores: { 1: 0, 2: 0 },
+      answeredThisTurn: false,
+      timeLeft: 60,
+      timerId: null
+    };
+
+    let peer = null;
+    let conn = null;
+
+    const el = {
+      status: document.getElementById("connectionStatus"),
+      lobby: document.getElementById("lobbyScreen"),
+      hub: document.getElementById("hubScreen"),
+      game: document.getElementById("gameScreen"),
+      createRoomBtn: document.getElementById("createRoomBtn"),
+      localPlayBtn: document.getElementById("localPlayBtn"),
+      createdRoomBox: document.getElementById("createdRoomBox"),
+      createdRoomCode: document.getElementById("createdRoomCode"),
+      waitingPeerText: document.getElementById("waitingPeerText"),
+      joinCodeInput: document.getElementById("joinCodeInput"),
+      joinRoomBtn: document.getElementById("joinRoomBtn"),
+      leaveRoomBtn: document.getElementById("leaveRoomBtn"),
+      backToHubBtn: document.getElementById("backToHubBtn"),
+      rematchBtn: document.getElementById("rematchBtn"),
+      howToPlay: document.getElementById("howToPlayCard"),
+      p1Score: document.getElementById("p1ScoreBox"),
+      p2Score: document.getElementById("p2ScoreBox"),
+      turnBanner: document.getElementById("turnBanner"),
+      questionBox: document.getElementById("questionBox"),
+      optionsContainer: document.getElementById("optionsContainer"),
+      feedbackBox: document.getElementById("feedbackBox"),
+      nextBtn: document.getElementById("nextBtn")
+    };
+
+    function setStatus(text) {
+      el.status.textContent = text;
+    }
+
+    function sendSync(payload) {
+      if (conn && conn.open) {
+        conn.send(payload);
       }
-    ];
+    }
 
-    const CLUE_ITEMS = [
-      {
-        target: "محمد صلاح",
-        clues: [
-          "تلميح 1: لاعب دولي مصري وجناح هجومي سريع.",
-          "تلميح 2: تألق بشكل لافت في الدوري الإنجليزي مع ليفربول.",
-          "تلميح 3: حصد لقب هداف البريميرليغ أكثر من مرة."
-        ],
-        accepted: ["محمد صلاح", "صلاح", "mohamed salah", "salah"]
-      },
-      {
-        target: "زين الدين زيدان",
-        clues: [
-          "تلميح 1: صانع ألعاب فرنسي أسطوري في التسعينيات والألفينات.",
-          "تلميح 2: سجل هدفين في نهائي كأس العالم 1998.",
-          "تلميح 3: قاد ريال مدريد لثلاثية متتالية في دوري الأبطال كمدرب."
-        ],
-        accepted: ["زين الدين زيدان", "زيدان", "zinedine zidane", "zidane"]
+    function enterHub() {
+      clearInterval(state.timerId);
+      el.lobby.classList.add("hidden");
+      el.game.classList.add("hidden");
+      el.hub.classList.remove("hidden");
+    }
+
+    function startGame(gameKey, fromRemote = false) {
+      clearInterval(state.timerId);
+      state.currentGame = gameKey;
+      state.qIndex = 0;
+      state.turn = 1;
+      state.scores = { 1: 0, 2: 0 };
+      state.answeredThisTurn = false;
+      state.timeLeft = 60;
+
+      document.querySelectorAll(".game-item").forEach((btn) => {
+        btn.classList.toggle("active-game", btn.dataset.game === gameKey);
+      });
+
+      el.lobby.classList.add("hidden");
+      el.hub.classList.add("hidden");
+      el.game.classList.remove("hidden");
+
+      if (gameKey === "sprint") {
+        state.timerId = setInterval(() => {
+          state.timeLeft -= 1;
+          renderHeader();
+          if (state.timeLeft <= 0) {
+            clearInterval(state.timerId);
+            el.feedbackBox.classList.remove("hidden");
+            el.feedbackBox.textContent = `انتهى سباق 60 ثانية! النتيجة النهائية — اللاعب 1: ${state.scores[1]} | اللاعب 2: ${state.scores[2]}`;
+          }
+        }, 1000);
       }
-    ];
 
-    const RUSH_BANK = [
-      { q: "كم عدد لاعبي الفريق الواحد داخل الملعب؟", opts: ["11", "10", "12"], ans: 0 },
-      { q: "ما لون البطاقة التي تعني الطرد المباشر؟", opts: ["الصفراء", "الحمراء", "الخضراء"], ans: 1 },
-      { q: "كم مدة الشوط الأصلي في مباراة كرة القدم؟", opts: ["40 دقيقة", "45 دقيقة", "50 دقيقة"], ans: 1 },
-      { q: "أين أُقيمت كأس العالم 2018؟", opts: ["روسيا", "البرازيل", "ألمانيا"], ans: 0 },
-      { q: "ما هو لقب منتخب البرازيل الأشهر؟", opts: ["السيليساو", "الأزوري", "الديوك"], ans: 0 }
-    ];
+      if (!fromRemote) {
+        sendSync({
+          type: "START_GAME",
+          gameKey,
+          scores: state.scores,
+          qIndex: state.qIndex,
+          turn: state.turn
+        });
+      }
 
-    let currentGame = "duel";
-    let duelIndex = 0;
-    let duelScore = [0, 0];
-    let duelTurn = 0;
-
-    let careerIndex = 0;
-    let careerScore = 0;
-
-    let colorIndex = 0;
-    let colorScore = 0;
-
-    let clueIndex = 0;
-    let clueStep = 0;
-    let clueScore = 0;
-
-    let rushTimer = 60;
-    let rushInterval = null;
-    let rushScore = 0;
-    let rushQIndex = 0;
-    let rushActive = false;
-
-    function selectGame(gameKey, btnEl) {
-      clearInterval(rushInterval);
-      rushActive = false;
-      currentGame = gameKey;
-      document.querySelectorAll(".game-pick-btn").forEach((b) => b.classList.remove("active"));
-      if (btnEl) btnEl.classList.add("active");
-      renderCurrentGame();
+      renderGame();
     }
 
-    function renderHowToPlay(title, text) {
-      return `
-        <section class="how-to-play" aria-label="طريقة اللعب">
-          <h2 class="how-to-play-title">طريقة اللعب — ${title}</h2>
-          <p>${text}</p>
-        </section>
-      `;
-    }
+    function renderHeader() {
+      const g = GAMES_DATA[state.currentGame];
+      el.howToPlay.innerHTML = `<strong>طريقة اللعب — ${g.title}</strong>${g.howToPlay}`;
+      el.p1Score.textContent = `اللاعب 1: ${state.scores[1]}`;
+      el.p2Score.textContent = `اللاعب 2: ${state.scores[2]}`;
 
-    function renderCurrentGame() {
-      const stage = document.getElementById("gameStage");
-      if (currentGame === "duel") renderDuel(stage);
-      else if (currentGame === "career") renderCareer(stage);
-      else if (currentGame === "colors") renderColors(stage);
-      else if (currentGame === "clues") renderClues(stage);
-      else if (currentGame === "rush60") renderRush60(stage);
-    }
-
-    function renderDuel(stage) {
-      const item = DUEL_QUESTIONS[duelIndex % DUEL_QUESTIONS.length];
-      stage.innerHTML = `
-        ${renderHowToPlay(
-          "1 ضد 1 بالأسئلة",
-          "يتنافس لاعبان بالتبادل (اللاعب 1 ثم اللاعب 2) على الإجابة الصحيحة عن أسئلة الكرة؛ كل إجابة صحيحة تمنح نقطة واحدة."
-        )}
-        <div class="hud-bar">
-          <span>الدور: اللاعب ${duelTurn + 1}</span>
-          <span>اللاعب 1: ${duelScore[0]}</span>
-          <span>اللاعب 2: ${duelScore[1]}</span>
-        </div>
-        <div class="question-box">${item.q}</div>
-        <div class="options-list" id="duelOpts">
-          ${item.opts.map((opt, idx) => `<button class="option-btn" onclick="answerDuel(${idx}, this)">${opt}</button>`).join("")}
-        </div>
-        <div id="duelFeedback"></div>
-        <div class="controls-row">
-          <button class="action-btn primary" onclick="nextDuelQuestion()">السؤال التالي</button>
-          <button class="action-btn secondary" onclick="resetDuel()">إعادة اللعب (Rematch)</button>
-        </div>
-      `;
-    }
-
-    function answerDuel(idx, btn) {
-      const item = DUEL_QUESTIONS[duelIndex % DUEL_QUESTIONS.length];
-      const buttons = document.querySelectorAll("#duelOpts .option-btn");
-      buttons.forEach((b) => (b.disabled = true));
-      const fb = document.getElementById("duelFeedback");
-      if (idx === item.ans) {
-        btn.classList.add("correct");
-        duelScore[duelTurn] += 1;
-        fb.className = "feedback ok";
-        fb.textContent = `إجابة صحيحة! نقطة للاعب ${duelTurn + 1}.`;
+      if (state.currentGame === "sprint") {
+        el.turnBanner.textContent = `الدور: اللاعب ${state.turn} | الوقت المتبقي: ${state.timeLeft} ثانية`;
       } else {
-        btn.classList.add("wrong");
-        buttons[item.ans].classList.add("correct");
-        fb.className = "feedback err";
-        fb.textContent = `إجابة غير صحيحة — الصحيح هو: ${item.opts[item.ans]}`;
+        el.turnBanner.textContent = `الدور: اللاعب ${state.turn}`;
       }
-      duelTurn = duelTurn === 0 ? 1 : 0;
     }
 
-    function nextDuelQuestion() {
-      duelIndex += 1;
-      renderDuel(document.getElementById("gameStage"));
+    function renderGame() {
+      renderHeader();
+      const g = GAMES_DATA[state.currentGame];
+      const item = g.items[state.qIndex % g.items.length];
+      state.answeredThisTurn = false;
+      el.feedbackBox.classList.add("hidden");
+      el.feedbackBox.textContent = "";
+
+      let swatchesHtml = "";
+      if (item.colors && item.colors.length) {
+        swatchesHtml = `<div class="color-swatch-row">${item.colors
+          .map((c) => `<span class="swatch" style="background:${c}"></span>`)
+          .join("")}</div>`;
+      }
+
+      el.questionBox.innerHTML = `<div style="font-size:21px;font-weight:800;">${item.q}</div>${swatchesHtml}`;
+      el.optionsContainer.innerHTML = "";
+
+      item.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => handleAnswer(idx, false));
+        el.optionsContainer.appendChild(btn);
+      });
     }
 
-    function resetDuel() {
-      duelIndex = 0;
-      duelScore = [0, 0];
-      duelTurn = 0;
-      renderDuel(document.getElementById("gameStage"));
-    }
+    function handleAnswer(selectedIdx, fromRemote = false) {
+      if (state.answeredThisTurn) return;
+      state.answeredThisTurn = true;
 
-    function renderCareer(stage) {
-      const item = CAREER_STAGES[careerIndex % CAREER_STAGES.length];
-      stage.innerHTML = `
-        ${renderHowToPlay(
-          "مسيرة الأندية",
-          "اقرأ محطات وهوية النادي المعروضة أمامك ثم اختر اسم النادي الصحيح من الاختيارات."
-        )}
-        <div class="hud-bar">
-          <span>النقاط: ${careerScore}</span>
-          <span>مرحلة ${(careerIndex % CAREER_STAGES.length) + 1} من ${CAREER_STAGES.length}</span>
-        </div>
-        <div class="question-box">
-          <div>${item.title}</div>
-          <ul style="margin:10px 0 0; padding-right:22px; font-size:18px; font-weight:500;">
-            ${item.stops.map((s) => `<li>${s}</li>`).join("")}
-          </ul>
-        </div>
-        <div class="options-list" id="careerOpts">
-          ${item.options.map((o, i) => `<button class="option-btn" onclick="answerCareer(${i}, this)">${o}</button>`).join("")}
-        </div>
-        <div id="careerFeedback"></div>
-        <div class="controls-row">
-          <button class="action-btn primary" onclick="nextCareer()">النادي التالي</button>
-          <button class="action-btn secondary" onclick="resetCareer()">إعادة اللعب (Rematch)</button>
-        </div>
-      `;
-    }
+      const g = GAMES_DATA[state.currentGame];
+      const item = g.items[state.qIndex % g.items.length];
+      const buttons = el.optionsContainer.querySelectorAll(".option-btn");
 
-    function answerCareer(idx, btn) {
-      const item = CAREER_STAGES[careerIndex % CAREER_STAGES.length];
-      const buttons = document.querySelectorAll("#careerOpts .option-btn");
-      buttons.forEach((b) => (b.disabled = true));
-      const fb = document.getElementById("careerFeedback");
-      if (idx === item.ans) {
-        btn.classList.add("correct");
-        careerScore += 1;
-        fb.className = "feedback ok";
-        fb.textContent = "أحسنت! تخمين صحيح للنادي.";
+      buttons.forEach((b, i) => {
+        b.disabled = true;
+        if (i === item.answer) b.classList.add("correct");
+        if (i === selectedIdx && selectedIdx !== item.answer) b.classList.add("wrong");
+      });
+
+      el.feedbackBox.classList.remove("hidden");
+      if (selectedIdx === item.answer) {
+        state.scores[state.turn] += 1;
+        el.feedbackBox.textContent = `إجابة صحيحة! نقطة تُضاف إلى اللاعب ${state.turn}.`;
       } else {
-        btn.classList.add("wrong");
-        buttons[item.ans].classList.add("correct");
-        fb.className = "feedback err";
-        fb.textContent = `النادي الصحيح هو: ${item.options[item.ans]}`;
+        el.feedbackBox.textContent = `إجابة غير صحيحة. الإجابة الصحيحة هي: ${item.options[item.answer]}`;
+      }
+
+      renderHeader();
+
+      if (!fromRemote) {
+        sendSync({
+          type: "ANSWER",
+          selectedIdx,
+          scores: state.scores,
+          turn: state.turn
+        });
       }
     }
 
-    function nextCareer() {
-      careerIndex += 1;
-      renderCareer(document.getElementById("gameStage"));
-    }
+    function nextQuestion(fromRemote = false) {
+      state.qIndex += 1;
+      state.turn = state.turn === 1 ? 2 : 1;
+      renderGame();
 
-    function resetCareer() {
-      careerIndex = 0;
-      careerScore = 0;
-      renderCareer(document.getElementById("gameStage"));
-    }
-
-    function renderColors(stage) {
-      const item = COLOR_PUZZLES[colorIndex % COLOR_PUZZLES.length];
-      stage.innerHTML = `
-        ${renderHowToPlay(
-          "شبكة الألوان",
-          "انظر إلى شبكة الألوان المميزة للقميص ثم اختر النادي المرتبط بهذه الألوان."
-        )}
-        <div class="hud-bar">
-          <span>النقاط: ${colorScore}</span>
-          <span>شبكة ${(colorIndex % COLOR_PUZZLES.length) + 1} من ${COLOR_PUZZLES.length}</span>
-        </div>
-        <div class="question-box">
-          <div>ما هو النادي صاحب شبكة الألوان التالية؟</div>
-          <div class="color-grid">
-            ${item.swatches.map((sw) => `<div class="color-tile" style="background:${sw.color}; display:flex; align-items:center; justify-content:center;">${sw.label}</div>`).join("")}
-          </div>
-        </div>
-        <div class="options-list" id="colorOpts">
-          ${item.options.map((o, i) => `<button class="option-btn" onclick="answerColor(${i}, this)">${o}</button>`).join("")}
-        </div>
-        <div id="colorFeedback"></div>
-        <div class="controls-row">
-          <button class="action-btn primary" onclick="nextColor()">الشبكة التالية</button>
-          <button class="action-btn secondary" onclick="resetColor()">إعادة اللعب (Rematch)</button>
-        </div>
-      `;
-    }
-
-    function answerColor(idx, btn) {
-      const item = COLOR_PUZZLES[colorIndex % COLOR_PUZZLES.length];
-      const buttons = document.querySelectorAll("#colorOpts .option-btn");
-      buttons.forEach((b) => (b.disabled = true));
-      const fb = document.getElementById("colorFeedback");
-      if (idx === item.ans) {
-        btn.classList.add("correct");
-        colorScore += 1;
-        fb.className = "feedback ok";
-        fb.textContent = "ممتاز! ربط صحيح للألوان بالنادي.";
-      } else {
-        btn.classList.add("wrong");
-        buttons[item.ans].classList.add("correct");
-        fb.className = "feedback err";
-        fb.textContent = `الإجابة الصحيحة هي: ${item.options[item.ans]}`;
+      if (!fromRemote) {
+        sendSync({
+          type: "NEXT_Q",
+          qIndex: state.qIndex,
+          turn: state.turn,
+          scores: state.scores
+        });
       }
     }
 
-    function nextColor() {
-      colorIndex += 1;
-      renderColors(document.getElementById("gameStage"));
+    function setupConnection(connection) {
+      conn = connection;
+      conn.on("open", () => {
+        setStatus(`متصل أونلاين — غرفة: ${state.roomCode}`);
+        el.waitingPeerText.textContent = "تم اتصال اللاعب الثاني بنجاح! جارٍ فتح الألعاب...";
+        setTimeout(() => enterHub(), 600);
+      });
+
+      conn.on("data", (data) => {
+        if (data.type === "START_GAME") {
+          state.scores = data.scores;
+          state.qIndex = data.qIndex;
+          state.turn = data.turn;
+          startGame(data.gameKey, true);
+        } else if (data.type === "ANSWER") {
+          state.scores = data.scores;
+          state.turn = data.turn;
+          handleAnswer(data.selectedIdx, true);
+        } else if (data.type === "NEXT_Q") {
+          state.qIndex = data.qIndex;
+          state.turn = data.turn;
+          state.scores = data.scores;
+          renderGame();
+        }
+      });
+
+      conn.on("close", () => {
+        setStatus("انقطع الاتصال بالغرفة");
+      });
     }
 
-    function resetColor() {
-      colorIndex = 0;
-      colorScore = 0;
-      renderColors(document.getElementById("gameStage"));
-    }
+    el.createRoomBtn.addEventListener("click", () => {
+      const code = "KG" + Math.floor(1000 + Math.random() * 9000);
+      state.mode = "online-host";
+      state.roomCode = code;
+      el.createdRoomBox.classList.remove("hidden");
+      el.createdRoomCode.textContent = code;
+      setStatus(`جاري تجهيز الغرفة ${code}...`);
 
-    function renderClues(stage) {
-      const item = CLUE_ITEMS[clueIndex % CLUE_ITEMS.length];
-      const visibleClues = item.clues.slice(0, clueStep + 1);
-      stage.innerHTML = `
-        ${renderHowToPlay(
-          "تخمين التلميحات",
-          "اكتب اسم الشخصية أو النجم الكروي المطلوب؛ يمكنك طلب تلميح إضافي إذا احتجت، وكلما خمّنت مبكراً كانت النتيجة أفضل."
-        )}
-        <div class="hud-bar">
-          <span>النقاط: ${clueScore}</span>
-          <span>التلميحات الظاهرة: ${visibleClues.length} / ${item.clues.length}</span>
-        </div>
-        <div class="question-box">
-          ${visibleClues.map((c) => `<div style="margin-bottom:8px;">${c}</div>`).join("")}
-        </div>
-        <div class="input-row">
-          <input type="text" id="clueInput" class="answer-input" placeholder="اكتب تخمينك هنا..." />
-          <button class="action-btn primary" onclick="checkClueAnswer()">تأكيد التخمين</button>
-          <button class="action-btn secondary" onclick="revealNextClue()">تلميح إضافي</button>
-        </div>
-        <div id="clueFeedback"></div>
-        <div class="controls-row">
-          <button class="action-btn option-btn" onclick="nextClueItem()">سؤال تلميحات جديد</button>
-          <button class="action-btn secondary" onclick="resetClues()">إعادة اللعب (Rematch)</button>
-        </div>
-      `;
-    }
+      if (peer) peer.destroy();
+      peer = new Peer("kooragemz-" + code);
+      peer.on("open", () => {
+        setStatus(`الغرفة ${code} جاهزة — بانتظار اللاعب الثاني`);
+      });
+      peer.on("connection", (incomingConn) => {
+        setupConnection(incomingConn);
+      });
+      peer.on("error", (err) => {
+        setStatus("تعذر فتح الغرفة أونلاين، يمكنك استخدام اللعب المحلي");
+        console.error(err);
+      });
+    });
 
-    function revealNextClue() {
-      const item = CLUE_ITEMS[clueIndex % CLUE_ITEMS.length];
-      if (clueStep < item.clues.length - 1) {
-        clueStep += 1;
-      }
-      renderClues(document.getElementById("gameStage"));
-    }
-
-    function checkClueAnswer() {
-      const item = CLUE_ITEMS[clueIndex % CLUE_ITEMS.length];
-      const val = (document.getElementById("clueInput").value || "").trim().toLowerCase();
-      const fb = document.getElementById("clueFeedback");
-      if (!val) {
-        fb.className = "feedback err";
-        fb.textContent = "اكتب اسماً أولاً قبل التأكيد.";
+    el.joinRoomBtn.addEventListener("click", () => {
+      const code = el.joinCodeInput.value.trim().toUpperCase();
+      if (!code) {
+        alert("من فضلك أدخل كود الغرفة أولاً.");
         return;
       }
-      const isMatch = item.accepted.some((a) => val.includes(a.toLowerCase()) || a.toLowerCase().includes(val));
-      if (isMatch) {
-        clueScore += 1;
-        fb.className = "feedback ok";
-        fb.textContent = `إجابة صحيحة! المطلوب هو: ${item.target}.`;
-      } else {
-        fb.className = "feedback err";
-        fb.textContent = "ليس بعد — جرّب تلميحاً إضافياً أو أعد المحاولة.";
-      }
-    }
+      state.mode = "online-guest";
+      state.roomCode = code;
+      setStatus(`جاري الاتصال بالغرفة ${code}...`);
 
-    function nextClueItem() {
-      clueIndex += 1;
-      clueStep = 0;
-      renderClues(document.getElementById("gameStage"));
-    }
+      if (peer) peer.destroy();
+      peer = new Peer();
+      peer.on("open", () => {
+        const outgoing = peer.connect("kooragemz-" + code);
+        setupConnection(outgoing);
+      });
+      peer.on("error", (err) => {
+        setStatus("تعذر الانضمام للغرفة، تأكد من صحة الكود");
+        console.error(err);
+      });
+    });
 
-    function resetClues() {
-      clueIndex = 0;
-      clueStep = 0;
-      clueScore = 0;
-      renderClues(document.getElementById("gameStage"));
-    }
+    el.localPlayBtn.addEventListener("click", () => {
+      state.mode = "local";
+      state.roomCode = "محلي";
+      setStatus("الوضع: لعب محلي على نفس الجهاز (اللاعب 1 ضد اللاعب 2)");
+      enterHub();
+    });
 
-    function renderRush60(stage) {
-      const item = RUSH_BANK[rushQIndex % RUSH_BANK.length];
-      stage.innerHTML = `
-        ${renderHowToPlay(
-          "سباق 60 ثانية",
-          "أجب عن أكبر عدد ممكن من الأسئلة الكروية السريعة خلال 60 ثانية قبل انتهاء العد التنازلي."
-        )}
-        <div class="hud-bar">
-          <span>الوقت: <strong id="rushSec">${rushTimer}</strong> ثانية</span>
-          <span>النقاط: <strong id="rushPts">${rushScore}</strong></span>
-        </div>
-        <div class="question-box">${item.q}</div>
-        <div class="options-list" id="rushOpts">
-          ${item.opts.map((o, i) => `<button class="option-btn" onclick="answerRush(${i})" ${rushActive ? "" : "disabled"}>${o}</button>`).join("")}
-        </div>
-        <div id="rushFeedback"></div>
-        <div class="controls-row">
-          <button class="action-btn primary" onclick="startRush60()">بدء السباق (60 ثانية)</button>
-          <button class="action-btn secondary" onclick="resetRush60()">إعادة اللعب (Rematch)</button>
-        </div>
-      `;
-    }
+    document.querySelectorAll(".game-item").forEach((btn) => {
+      btn.addEventListener("click", () => startGame(btn.dataset.game, false));
+    });
 
-    function startRush60() {
-      clearInterval(rushInterval);
-      rushTimer = 60;
-      rushScore = 0;
-      rushQIndex = 0;
-      rushActive = true;
-      renderRush60(document.getElementById("gameStage"));
+    el.backToHubBtn.addEventListener("click", enterHub);
+    el.rematchBtn.addEventListener("click", () => startGame(state.currentGame, false));
+    el.nextBtn.addEventListener("click", () => nextQuestion(false));
 
-      rushInterval = setInterval(() => {
-        rushTimer -= 1;
-        const secEl = document.getElementById("rushSec");
-        if (secEl) secEl.textContent = String(rushTimer);
-        if (rushTimer <= 0) {
-          clearInterval(rushInterval);
-          rushActive = false;
-          document.querySelectorAll("#rushOpts .option-btn").forEach((b) => (b.disabled = true));
-          const fb = document.getElementById("rushFeedback");
-          if (fb) {
-            fb.className = "feedback ok";
-            fb.textContent = `انتهى الوقت! مجموع نقاطك: ${rushScore}.`;
-          }
-        }
-      }, 1000);
-    }
-
-    function answerRush(idx) {
-      if (!rushActive) return;
-      const item = RUSH_BANK[rushQIndex % RUSH_BANK.length];
-      const fb = document.getElementById("rushFeedback");
-      if (idx === item.ans) {
-        rushScore += 1;
-        if (fb) {
-          fb.className = "feedback ok";
-          fb.textContent = "سريع وصحيح! +1";
-        }
-      } else if (fb) {
-        fb.className = "feedback err";
-        fb.textContent = `خطأ — الصحيح: ${item.opts[item.ans]}`;
-      }
-      rushQIndex += 1;
-      const qBox = document.querySelector("#gameStage .question-box");
-      const nextItem = RUSH_BANK[rushQIndex % RUSH_BANK.length];
-      if (qBox) qBox.textContent = nextItem.q;
-      const ptsEl = document.getElementById("rushPts");
-      if (ptsEl) ptsEl.textContent = String(rushScore);
-      const optsWrap = document.getElementById("rushOpts");
-      if (optsWrap) {
-        optsWrap.innerHTML = nextItem.opts
-          .map((o, i) => `<button class="option-btn" onclick="answerRush(${i})">${o}</button>`)
-          .join("");
-      }
-    }
-
-    function resetRush60() {
-      clearInterval(rushInterval);
-      rushTimer = 60;
-      rushScore = 0;
-      rushQIndex = 0;
-      rushActive = false;
-      renderRush60(document.getElementById("gameStage"));
-    }
-
-    renderCurrentGame();
+    el.leaveRoomBtn.addEventListener("click", () => {
+      clearInterval(state.timerId);
+      if (conn) conn.close();
+      if (peer) peer.destroy();
+      state.mode = null;
+      state.roomCode = "";
+      setStatus("الوضع: لم يتم دخول غرفة بعد");
+      el.hub.classList.add("hidden");
+      el.game.classList.add("hidden");
+      el.lobby.classList.remove("hidden");
+    });
   </script>
 </body>
 </html> 
